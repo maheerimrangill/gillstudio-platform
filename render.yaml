@@ -1,0 +1,19 @@
+# Optional Blueprint. Simplest path is the manual steps in README.md (Section 3).
+services:
+  - type: web
+    name: gill-studio
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT --proxy-headers --forwarded-allow-ips='*'
+    healthCheckPath: /api/health
+    envVars:
+      - {key: PYTHON_VERSION, value: 3.12.3}
+      - {key: APP_ENV, value: production}
+      - {key: SECRET_KEY, generateValue: true}
+      - {key: EMAIL_PROVIDER, value: resend}
+      - {key: DATABASE_URL, sync: false}
+      - {key: ADMIN_PASSWORD_HASH, sync: false}
+      - {key: ADMIN_USERNAME, sync: false}
+      - {key: RESEND_API_KEY, sync: false}
+      - {key: NOTIFY_EMAIL, sync: false}
