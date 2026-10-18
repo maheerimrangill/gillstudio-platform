@@ -1,5 +1,8 @@
 """All configuration comes from environment variables (see .env.example)."""
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def _int(name, default):
